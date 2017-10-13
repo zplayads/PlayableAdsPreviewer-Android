@@ -14,15 +14,27 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp">
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="35dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="400dp">
 
         <TextView
             android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#aaae0b0b"
+            android:textColor="#cf292c"
             android:textSize="14sp" />
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/am_loading"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="400dp"
+        android:visibility="gone" />
 
     <TextView
         android:layout_width="match_parent"
@@ -30,7 +42,7 @@
         android:layout_gravity="top"
         android:background="#ea100f0f"
         android:gravity="center"
-        android:text="Zplay Ads 可玩广告"
+        android:text="@string/zplay_ads"
         android:textColor="#fff"
         android:textSize="22sp" />
 
@@ -38,19 +50,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="130dp"
-        android:text="将二维码/条形码放入框内，即可自动扫描"
+        android:layout_marginTop="80dp"
+        android:text="@string/scan_msg"
         android:textColor="#fff" />
 
     <TextView
+        android:id="@+id/am_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="410dp"
+        android:layout_marginTop="360dp"
         android:clickable="true"
         android:gravity="center"
         android:onClick="openGallery"
-        android:text="您可在Zplay Ads广告平台获得二维码或者\n前往相册选择二维码"
         android:textColor="#fff" />
 
     <TextView
@@ -59,7 +71,7 @@
         android:layout_gravity="bottom"
         android:background="#ea100f0f"
         android:gravity="center"
-        android:text="© 2010 ～ 2017 Power By Zplay Ads"
+        android:text="@string/_2010_2017_power_by_zplay_ads"
         android:textColor="#fff"
         android:textSize="12sp" />
 </FrameLayout>

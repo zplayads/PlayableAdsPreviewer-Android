@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         app:inner_width="250dp"
         app:inner_height="250dp"
-        app:inner_margintop="150dp"
+        app:inner_margintop="100dp"
         app:inner_corner_color="@color/scan_corner_color"
         app:inner_corner_length="40dp"
         app:inner_corner_width="1dp"

@@ -8,8 +8,11 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
+import android.support.v4.text.TextUtilsCompat;
+import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -21,37 +24,59 @@ import com.playableads.SimplePlayLoadingListener;
 import com.uuzuche.lib_zxing.activity.CaptureFragment;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.zplay.zplayads.GalleryActivity.EXTRA_PATH;
 
 public class MainActivity extends FragmentActivity {
     private static final String TAG = "ccc";
     private static final int REQUEST_IMAGE = 1;
 
-    private TextView info;
-    private ScrollView mScrollView;
+    @BindView(R.id.text)
+    TextView info;
+    @BindView(R.id.am_textView)
+    TextView textView;
+    @BindView(R.id.scrollView)
+    ScrollView mScrollView;
+    @BindView(R.id.am_loading)
+    View mLoading;
 
     CaptureFragment captureFragment;
 
     PlayableAds mAds;
+    private boolean canRequestNextAd = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        textView.setText(Html.fromHtml(getString(R.string.open_gallery)));
 
         mAds = PlayableAds.init(this, "androidDemoApp", "androidDemoAdUnit");
 
-        info = findViewById(R.id.text);
-        mScrollView = findViewById(R.id.scrollView);
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED &&
+                    checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_DENIED) {
+                setInfo(getString(R.string.open_camera_permission));
+                requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE}, 0);
+                return;
+            }
+
             if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
                 setInfo(getString(R.string.open_camera_permission));
                 requestPermissions(new String[]{Manifest.permission.CAMERA}, 0);
                 return;
             }
-        }
 
+            if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_DENIED) {
+                setInfo(getString(R.string.open_phone_permission));
+                requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, 0);
+                return;
+            }
+        }
 
         initCaptureFragment();
     }
@@ -82,34 +107,45 @@ public class MainActivity extends FragmentActivity {
     CodeUtils.AnalyzeCallback analyzeCallback = new CodeUtils.AnalyzeCallback() {
         @Override
         public void onAnalyzeSuccess(Bitmap mBitmap, String result) {
-            mAds.requestPlayableAds(result, mPreloadingListener);
-            setInfo(getString(R.string.start_request));
+            requestAd(result);
         }
 
         @Override
         public void onAnalyzeFailed() {
-            setInfo("未识别");
+            setInfo(getString(R.string.unknown));
         }
     };
+
+    private void requestAd(String result) {
+        if (canRequestNextAd) {
+            mLoading.setVisibility(View.VISIBLE);
+            mAds.requestPlayableAds(result, mPreloadingListener);
+            setInfo(getString(R.string.start_request));
+        }
+        canRequestNextAd = false;
+    }
 
     private PlayPreloadingListener mPreloadingListener = new PlayPreloadingListener() {
 
         @Override
         public void onLoadFinished() {
+            mLoading.setVisibility(View.GONE);
             setInfo(getString(R.string.pre_cache_finished));
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(MainActivity.this, "展示广告", Toast.LENGTH_SHORT).show();
+                    setInfo(getString(R.string.present_ad));
                     mAds.presentPlayableAD(MainActivity.this, new SimplePlayLoadingListener() {
 
                         @Override
                         public void playableAdsIncentive() {
                             setInfo(getString(R.string.ads_incentive));
+                            canRequestNextAd = true;
                         }
 
                         @Override
                         public void onAdsError(int code, String msg) {
+                            canRequestNextAd = true;
                             setInfo(getString(R.string.ads_error, code, msg));
                         }
                     });
@@ -121,6 +157,8 @@ public class MainActivity extends FragmentActivity {
         @Override
         public void onLoadFailed(int errorCode, String msg) {
             setInfo(String.format(getString(R.string.load_failed), errorCode, msg));
+            canRequestNextAd = true;
+            mLoading.setVisibility(View.GONE);
         }
     };
 
@@ -142,13 +180,12 @@ public class MainActivity extends FragmentActivity {
                     CodeUtils.analyzeBitmap(path, new CodeUtils.AnalyzeCallback() {
                         @Override
                         public void onAnalyzeSuccess(Bitmap mBitmap, String result) {
-                            mAds.requestPlayableAds(result, mPreloadingListener);
-                            setInfo(getString(R.string.start_request));
+                            requestAd(result);
                         }
 
                         @Override
                         public void onAnalyzeFailed() {
-                            Toast.makeText(MainActivity.this, "未识别", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, R.string.unknown, Toast.LENGTH_LONG).show();
                         }
                     });
                 } catch (Exception e) {
@@ -158,4 +195,17 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        for (int i = 0; i < permissions.length; i++) {
+            if (TextUtils.equals(permissions[i], Manifest.permission.CAMERA)) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    initCaptureFragment();
+                } else {
+                    setInfo(getString(R.string.camera_permission_msg));
+                }
+            }
+        }
+    }
 }

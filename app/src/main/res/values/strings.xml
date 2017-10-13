@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PlayableAds</string>
+    <string name="app_name">ZPLAY Ads</string>
     <string name="app_id">Your App ID here</string>
     <string name="ad_unit_id">Your Ad Unit ID here</string>
     <string name="scan">Scan</string>
@@ -18,4 +18,16 @@
     <string name="start_request">Start request ad</string>
     <string name="pre_cache_finished">ad load is complete</string>
     <string name="loading_ad">ad is loading…</string>
+    <string name="back">Back</string>
+    <string name="gallery">Gallery</string>
+    <string name="zplay_ads">Zplay Ads</string>
+    <string name="scan_msg">Please focus on QR code</string>
+    <string name="_2010_2017_power_by_zplay_ads">© 2010 ～ 2017 Power By Zplay Ads</string>
+    <string name="present_ad">present ad</string>
+    <string name="unknown">unknown</string>
+    <string name="camera_permission_msg">please check the camera permission</string>
+    <string name="storage_permission_msg">please check the storage permission</string>
+    <string name="image_load_failed">image load failed</string>
+    <string name="loading">loading…</string>
+    <string name="open_gallery"><![CDATA[您可在Zplay Ads广告平台获得QR code或者<br /> go <font color=\'#2f2ff2\'>gallery</font>选择二维码]]></string>
 </resources>

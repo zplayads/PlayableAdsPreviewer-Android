@@ -71,15 +71,12 @@ public class GalleryActivity extends Activity {
             @Override
             protected void onPreExecute() {
                 mProgressMsg.setVisibility(View.VISIBLE);
-                mProgressMsg.setText("正在加载中。。。");
+                mProgressMsg.setText(R.string.loading);
                 mFilePathArray = new ArrayList<>();
             }
 
             @Override
             protected Boolean doInBackground(Void... params) {
-
-                String firstImage = null;
-
                 Uri mImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
                 ContentResolver mContentResolver = GalleryActivity.this
                         .getContentResolver();
@@ -117,7 +114,7 @@ public class GalleryActivity extends Activity {
                     mProgressMsg.setVisibility(View.GONE);
                     mRecyclerView.setAdapter(new GalleryAdapter(mFilePathArray));
                 } else {
-                    mProgressMsg.setText("图片家在失败");
+                    mProgressMsg.setText(R.string.image_load_failed);
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -129,7 +126,7 @@ public class GalleryActivity extends Activity {
         for (int i = 0; i < permissions.length; i++) {
             if (TextUtils.equals(permissions[i], Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "请授权，如果不会就卸载重新安装app", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.storage_permission_msg, Toast.LENGTH_LONG).show();
                 } else {
                     loadImages();
                 }
@@ -150,5 +147,9 @@ public class GalleryActivity extends Activity {
     public static void launch(Activity activity, int reqCode) {
         Intent i = new Intent(activity, GalleryActivity.class);
         activity.startActivityForResult(i, reqCode);
+    }
+
+    public void onBackClicked(View view) {
+        finish();
     }
 }
