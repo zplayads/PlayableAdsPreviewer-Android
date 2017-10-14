@@ -23,3 +23,18 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# playableAds
+-keep class com.playableads.PlayPreloadingListener {*;}
+-keep class com.playableads.PlayLoadingListener {*;}
+-keep class * implements com.playableads.PlayPreloadingListener {*;}
+-keep class * implements com.playableads.PlayLoadingListener {*;}
+-keep class com.playableads.PlayableAds {
+    public void onDestroy();
+    public static com.playableads.PlayableAds getInstance();
+    public void requestPlayableAds(com.playableads.PlayPreloadingListener);
+    public void requestPlayableAds(java.lang.String, com.playableads.PlayPreloadingListener);
+    public synchronized static com.playableads.PlayableAds init(android.content.Context, java.lang.String, java.lang.String);
+    public void presentPlayableAD(android.content.Context, com.playableads.PlayLoadingListener);
+    public boolean canPresentAd();
+}

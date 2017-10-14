@@ -25,9 +25,10 @@
     <string name="_2010_2017_power_by_zplay_ads">© 2010 ～ 2017 Power By Zplay Ads</string>
     <string name="present_ad">present ad</string>
     <string name="unknown">unknown</string>
-    <string name="camera_permission_msg">please check the camera permission</string>
+    <string name="permission_msg">please check the permission</string>
     <string name="storage_permission_msg">please check the storage permission</string>
     <string name="image_load_failed">image load failed</string>
     <string name="loading">loading…</string>
     <string name="open_gallery"><![CDATA[您可在Zplay Ads广告平台获得QR code或者<br /> go <font color=\'#2f2ff2\'>gallery</font>选择二维码]]></string>
+    <string name="dividing_line">--------dividing line--------</string>
 </resources>

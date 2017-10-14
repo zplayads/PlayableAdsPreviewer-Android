@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.text.TextUtilsCompat;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
@@ -58,10 +57,21 @@ public class MainActivity extends FragmentActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-            if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED &&
-                    checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_DENIED) {
+            if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED
+                    && checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_DENIED
+                    && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                 setInfo(getString(R.string.open_camera_permission));
-                requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE}, 0);
+                requestPermissions(new String[]{
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_PHONE_STATE}, 0);
+                return;
+            }
+
+            if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED
+                    && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                setInfo(getString(R.string.open_camera_permission));
+                requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
                 return;
             }
 
@@ -71,10 +81,15 @@ public class MainActivity extends FragmentActivity {
                 return;
             }
 
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                setInfo(getString(R.string.open_write_permission));
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+                return;
+            }
+
             if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_DENIED) {
                 setInfo(getString(R.string.open_phone_permission));
                 requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, 0);
-                return;
             }
         }
 
@@ -88,7 +103,7 @@ public class MainActivity extends FragmentActivity {
 
         captureFragment.setAnalyzeCallback(analyzeCallback);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fl_my_container, captureFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fl_my_container, captureFragment).commitAllowingStateLoss();
     }
 
     private void setInfo(final String msg) {
@@ -141,12 +156,14 @@ public class MainActivity extends FragmentActivity {
                         public void playableAdsIncentive() {
                             setInfo(getString(R.string.ads_incentive));
                             canRequestNextAd = true;
+                            setInfo(getString(R.string.dividing_line));
                         }
 
                         @Override
                         public void onAdsError(int code, String msg) {
                             canRequestNextAd = true;
                             setInfo(getString(R.string.ads_error, code, msg));
+                            setInfo(getString(R.string.dividing_line));
                         }
                     });
                 }
@@ -198,14 +215,23 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        boolean isOk = true;
         for (int i = 0; i < permissions.length; i++) {
-            if (TextUtils.equals(permissions[i], Manifest.permission.CAMERA)) {
-                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    initCaptureFragment();
-                } else {
-                    setInfo(getString(R.string.camera_permission_msg));
-                }
+            if (TextUtils.equals(permissions[i], Manifest.permission.CAMERA)
+                    && grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                isOk = false;
             }
+
+            if (TextUtils.equals(permissions[i], Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    && grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                isOk = false;
+            }
+        }
+
+        if (isOk) {
+            initCaptureFragment();
+        } else {
+            setInfo(getString(R.string.permission_msg));
         }
     }
 }

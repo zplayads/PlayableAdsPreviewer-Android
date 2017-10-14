@@ -27,15 +27,6 @@
             android:textSize="14sp" />
     </ScrollView>
 
-    <ProgressBar
-        android:id="@+id/am_loading"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="right"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="400dp"
-        android:visibility="gone" />
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -74,4 +65,13 @@
         android:text="@string/_2010_2017_power_by_zplay_ads"
         android:textColor="#fff"
         android:textSize="12sp" />
+
+    <ProgressBar
+        android:id="@+id/am_loading"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="right|top"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone" />
 </FrameLayout>

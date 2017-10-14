@@ -90,6 +90,7 @@ public class GalleryActivity extends Activity {
                 if (mCursor == null) {
                     return false;
                 }
+                String cacheDir = "/Playable/PlayableAD/cache/";
                 while (mCursor.moveToNext()) {
                     // 获取图片的路径
                     String path = mCursor.getString(mCursor
@@ -97,7 +98,8 @@ public class GalleryActivity extends Activity {
 
 
                     File f = new File(path);
-                    if (f.length() > 4096) {
+
+                    if (f.length() > 4096 && !path.contains(cacheDir)) {
                         mFilePathArray.add(path);
                     }
 
