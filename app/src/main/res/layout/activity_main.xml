@@ -66,12 +66,47 @@
         android:textColor="#fff"
         android:textSize="12sp" />
 
-    <ProgressBar
-        android:id="@+id/am_loading"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="right|top"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:visibility="gone" />
+    <FrameLayout
+        android:id="@+id/am_loadingContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="top"
+            android:background="#ea100f0f"
+            android:gravity="center"
+            android:text="@string/zplay_ads"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/loading_frame"
+            android:minWidth="100dp"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <ProgressBar
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/am_loadingInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:textColor="#222"
+                android:text="@string/parse_success"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </FrameLayout>
+
 </FrameLayout>

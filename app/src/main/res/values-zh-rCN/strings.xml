@@ -25,11 +25,12 @@
     <string name="scan_msg">将二维码/条形码放入框内，即可自动扫描</string>
     <string name="_2010_2017_power_by_zplay_ads">© 2010 ～ 2017 Power By Zplay Ads</string>
     <string name="present_ad">展示广告</string>
-    <string name="unknown">未识别</string>
+    <string name="ads_id_error">广告id错误</string>
     <string name="permission_msg">请到应用设置中开启该权限，如果不会的话请重新安装应用</string>
     <string name="storage_permission_msg">请授予存储卡读取权限，可在应用设置中授予 如果不会就卸载重新安装app</string>
     <string name="image_load_failed">图片加载失败</string>
     <string name="loading">正在加载中。。。</string>
     <string name="open_gallery"><![CDATA[您可在Zplay Ads广告平台获得二维码或者<br />前往<font color=\'#2f2ff2\'>相册</font>选择二维码]]></string>
     <string name="dividing_line">--------分割线--------</string>
+    <string name="parse_success">二维码解析成功</string>
 </resources>

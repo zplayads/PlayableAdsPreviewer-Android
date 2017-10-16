@@ -12,16 +12,17 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.playableads.PlayPreloadingListener;
 import com.playableads.PlayableAds;
 import com.playableads.SimplePlayLoadingListener;
 import com.uuzuche.lib_zxing.activity.CaptureFragment;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,17 +39,21 @@ public class MainActivity extends FragmentActivity {
     TextView textView;
     @BindView(R.id.scrollView)
     ScrollView mScrollView;
-    @BindView(R.id.am_loading)
-    View mLoading;
+    @BindView(R.id.am_loadingContainer)
+    View mLoadingContainer;
+    @BindView(R.id.am_loadingInfo)
+    TextView mLoadingInfo;
 
     CaptureFragment captureFragment;
 
     PlayableAds mAds;
-    private boolean canRequestNextAd = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ZXingLibrary.initDisplayOpinion(this);
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         textView.setText(Html.fromHtml(getString(R.string.open_gallery)));
@@ -122,48 +127,39 @@ public class MainActivity extends FragmentActivity {
     CodeUtils.AnalyzeCallback analyzeCallback = new CodeUtils.AnalyzeCallback() {
         @Override
         public void onAnalyzeSuccess(Bitmap mBitmap, String result) {
+            showLoadingInfo(getString(R.string.parse_success), false);
             requestAd(result);
         }
 
         @Override
         public void onAnalyzeFailed() {
-            setInfo(getString(R.string.unknown));
+            mLoadingContainer.setVisibility(View.GONE);
+            ErrorActivity.launch(MainActivity.this, getString(R.string.code_request_error));
+//            showLoadingInfo(getString(R.string.code_request_error), true);
         }
     };
 
     private void requestAd(String result) {
-        if (canRequestNextAd) {
-            mLoading.setVisibility(View.VISIBLE);
-            mAds.requestPlayableAds(result, mPreloadingListener);
-            setInfo(getString(R.string.start_request));
-        }
-        canRequestNextAd = false;
+        mAds.requestPlayableAds(result, mPreloadingListener);
     }
 
     private PlayPreloadingListener mPreloadingListener = new PlayPreloadingListener() {
 
         @Override
         public void onLoadFinished() {
-            mLoading.setVisibility(View.GONE);
-            setInfo(getString(R.string.pre_cache_finished));
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    setInfo(getString(R.string.present_ad));
                     mAds.presentPlayableAD(MainActivity.this, new SimplePlayLoadingListener() {
 
                         @Override
                         public void playableAdsIncentive() {
-                            setInfo(getString(R.string.ads_incentive));
-                            canRequestNextAd = true;
-                            setInfo(getString(R.string.dividing_line));
+                            mLoadingContainer.setVisibility(View.GONE);
                         }
 
                         @Override
                         public void onAdsError(int code, String msg) {
-                            canRequestNextAd = true;
-                            setInfo(getString(R.string.ads_error, code, msg));
-                            setInfo(getString(R.string.dividing_line));
+                            setInfo(msg);
                         }
                     });
                 }
@@ -173,9 +169,11 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         public void onLoadFailed(int errorCode, String msg) {
-            setInfo(String.format(getString(R.string.load_failed), errorCode, msg));
-            canRequestNextAd = true;
-            mLoading.setVisibility(View.GONE);
+            if (errorCode == -1) {
+//                showLoadingInfo(getString(R.string.ads_id_error), true);
+                mLoadingContainer.setVisibility(View.GONE);
+                ErrorActivity.launch(MainActivity.this, getString(R.string.ads_id_error));
+            }
         }
     };
 
@@ -197,18 +195,35 @@ public class MainActivity extends FragmentActivity {
                     CodeUtils.analyzeBitmap(path, new CodeUtils.AnalyzeCallback() {
                         @Override
                         public void onAnalyzeSuccess(Bitmap mBitmap, String result) {
+                            showLoadingInfo(getString(R.string.parse_success), false);
                             requestAd(result);
                         }
 
                         @Override
                         public void onAnalyzeFailed() {
-                            Toast.makeText(MainActivity.this, R.string.unknown, Toast.LENGTH_LONG).show();
+                            mLoadingContainer.setVisibility(View.GONE);
+                            ErrorActivity.launch(MainActivity.this, getString(R.string.code_request_error));
+//                            showLoadingInfo(getString(R.string.code_request_error), true);
                         }
                     });
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+
+    private void showLoadingInfo(final String msg, boolean autoDismiss) {
+        mLoadingInfo.setText(msg);
+        mLoadingContainer.setVisibility(View.VISIBLE);
+        if (autoDismiss) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mLoadingContainer.setVisibility(View.GONE);
+                }
+            }, 3000);
         }
     }
 
@@ -233,5 +248,11 @@ public class MainActivity extends FragmentActivity {
         } else {
             setInfo(getString(R.string.permission_msg));
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PlayableAds.getInstance().onDestroy();
     }
 }
