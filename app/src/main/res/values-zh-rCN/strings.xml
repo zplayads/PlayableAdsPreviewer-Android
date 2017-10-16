@@ -25,7 +25,6 @@
     <string name="scan_msg">将二维码/条形码放入框内，即可自动扫描</string>
     <string name="_2010_2017_power_by_zplay_ads">© 2010 ～ 2017 Power By Zplay Ads</string>
     <string name="present_ad">展示广告</string>
-    <string name="ads_id_error">广告id错误</string>
     <string name="permission_msg">请到应用设置中开启该权限，如果不会的话请重新安装应用</string>
     <string name="storage_permission_msg">请授予存储卡读取权限，可在应用设置中授予 如果不会就卸载重新安装app</string>
     <string name="image_load_failed">图片加载失败</string>

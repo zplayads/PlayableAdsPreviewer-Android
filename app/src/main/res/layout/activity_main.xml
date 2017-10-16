@@ -103,8 +103,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:textColor="#222"
                 android:text="@string/parse_success"
+                android:textColor="#222"
                 android:textSize="13sp" />
         </LinearLayout>
     </FrameLayout>

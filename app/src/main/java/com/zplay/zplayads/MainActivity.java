@@ -135,7 +135,6 @@ public class MainActivity extends FragmentActivity {
         public void onAnalyzeFailed() {
             mLoadingContainer.setVisibility(View.GONE);
             ErrorActivity.launch(MainActivity.this, getString(R.string.code_request_error));
-//            showLoadingInfo(getString(R.string.code_request_error), true);
         }
     };
 
@@ -170,9 +169,8 @@ public class MainActivity extends FragmentActivity {
         @Override
         public void onLoadFailed(int errorCode, String msg) {
             if (errorCode == -1) {
-//                showLoadingInfo(getString(R.string.ads_id_error), true);
                 mLoadingContainer.setVisibility(View.GONE);
-                ErrorActivity.launch(MainActivity.this, getString(R.string.ads_id_error));
+                ErrorActivity.launch(MainActivity.this, getString(R.string.code_request_error));
             }
         }
     };
