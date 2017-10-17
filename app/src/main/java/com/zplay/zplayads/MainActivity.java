@@ -37,12 +37,14 @@ public class MainActivity extends FragmentActivity {
     TextView info;
     @BindView(R.id.am_textView)
     TextView textView;
-    @BindView(R.id.scrollView)
-    ScrollView mScrollView;
     @BindView(R.id.am_loadingContainer)
     View mLoadingContainer;
     @BindView(R.id.am_loadingInfo)
     TextView mLoadingInfo;
+    @BindView(R.id.fl_my_container)
+    View mFragmentContainer;
+    @BindView(R.id.am_topTextView)
+    View mTopTextView;
 
     CaptureFragment captureFragment;
 
@@ -109,6 +111,13 @@ public class MainActivity extends FragmentActivity {
         captureFragment.setAnalyzeCallback(analyzeCallback);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_my_container, captureFragment).commitAllowingStateLoss();
+        showTextInfo();
+    }
+
+    private void showTextInfo() {
+        mFragmentContainer.setVisibility(View.VISIBLE);
+        mTopTextView.setVisibility(View.VISIBLE);
+        textView.setVisibility(View.VISIBLE);
     }
 
     private void setInfo(final String msg) {
@@ -119,7 +128,6 @@ public class MainActivity extends FragmentActivity {
                 if (info != null) {
                     info.append(msg + "\n\n");
                 }
-                mScrollView.fullScroll(View.FOCUS_DOWN);
             }
         });
     }
@@ -201,7 +209,6 @@ public class MainActivity extends FragmentActivity {
                         public void onAnalyzeFailed() {
                             mLoadingContainer.setVisibility(View.GONE);
                             ErrorActivity.launch(MainActivity.this, getString(R.string.code_request_error));
-//                            showLoadingInfo(getString(R.string.code_request_error), true);
                         }
                     });
                 } catch (Exception e) {
@@ -228,23 +235,24 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        info.setText("");
         boolean isOk = true;
         for (int i = 0; i < permissions.length; i++) {
             if (TextUtils.equals(permissions[i], Manifest.permission.CAMERA)
                     && grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                 isOk = false;
+                setInfo(getString(R.string.open_camera_permission));
             }
 
             if (TextUtils.equals(permissions[i], Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     && grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                 isOk = false;
+                setInfo(getString(R.string.storage_permission_msg));
             }
         }
 
         if (isOk) {
             initCaptureFragment();
-        } else {
-            setInfo(getString(R.string.permission_msg));
         }
     }
 

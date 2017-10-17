@@ -11,10 +11,10 @@
     <string name="landing_page_loaded">落地页缓存完成</string>
     <string name="ads_incentive">点击落地页上的叉号</string>
     <string name="ads_error">错误信息： %1$d -> %2$s</string>
-    <string name="open_camera_permission">请打开相机权限，否则无法打开相机</string>
+    <string name="open_camera_permission">缺少相机权限</string>
     <string name="code_request_error">解析二维码失败</string>
-    <string name="open_write_permission">请打开读写权限，否则无法开启优化广告启动速度</string>
-    <string name="open_phone_permission">请打开电话权限，否则无法正常获取imei等标志信息，可能导致没有广告收益</string>
+    <string name="open_write_permission">缺少存储卡读写权限</string>
+    <string name="open_phone_permission">缺少电话权限</string>
     <string name="load_failed">错误码: %1$d 描述: %2$s</string>
     <string name="start_request">开始请求广告</string>
     <string name="pre_cache_finished">预加载完成</string>
@@ -25,11 +25,10 @@
     <string name="scan_msg">将二维码/条形码放入框内，即可自动扫描</string>
     <string name="_2010_2017_power_by_zplay_ads">© 2010 ～ 2017 Power By Zplay Ads</string>
     <string name="present_ad">展示广告</string>
-    <string name="permission_msg">请到应用设置中开启该权限，如果不会的话请重新安装应用</string>
-    <string name="storage_permission_msg">请授予存储卡读取权限，可在应用设置中授予 如果不会就卸载重新安装app</string>
+    <string name="storage_permission_msg">缺少存储卡读写权限</string>
     <string name="image_load_failed">图片加载失败</string>
     <string name="loading">正在加载中。。。</string>
-    <string name="open_gallery"><![CDATA[您可在Zplay Ads广告平台获得二维码或者<br />前往<font color=\'#2f2ff2\'>相册</font>选择二维码]]></string>
+    <string name="open_gallery"><![CDATA[您可在Zplay Ads广告平台获得二维码<br />或者<br /><font color=\'#7FE961\'>选择二维码</font>]]></string>
     <string name="dividing_line">--------分割线--------</string>
     <string name="parse_success">二维码解析成功</string>
 </resources>

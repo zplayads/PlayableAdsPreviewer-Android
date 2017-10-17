@@ -8,24 +8,18 @@
     <FrameLayout
         android:id="@+id/fl_my_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="35dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="400dp">
+        android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#cf292c"
-            android:textSize="14sp" />
-    </ScrollView>
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:textColor="#f5f9ef"
+        android:textSize="14sp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -38,12 +32,14 @@
         android:textSize="22sp" />
 
     <TextView
+        android:id="@+id/am_topTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="80dp"
         android:text="@string/scan_msg"
-        android:textColor="#fff" />
+        android:textColor="#fff"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/am_textView"
@@ -54,7 +50,8 @@
         android:clickable="true"
         android:gravity="center"
         android:onClick="openGallery"
-        android:textColor="#fff" />
+        android:textColor="#fff"
+        android:visibility="gone" />
 
     <TextView
         android:layout_width="match_parent"
