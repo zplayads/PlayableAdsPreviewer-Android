@@ -14,7 +14,6 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.playableads.PlayPreloadingListener;
@@ -177,7 +176,12 @@ public class MainActivity extends FragmentActivity {
         @Override
         public void onLoadFailed(int errorCode, String msg) {
             if (errorCode == -1) {
-                mLoadingContainer.setVisibility(View.GONE);
+                mLoadingContainer.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mLoadingContainer.setVisibility(View.GONE);
+                    }
+                });
                 ErrorActivity.launch(MainActivity.this, getString(R.string.code_request_error));
             }
         }
