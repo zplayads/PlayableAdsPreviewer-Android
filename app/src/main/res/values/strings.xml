@@ -1,33 +1,16 @@
 <resources>
     <string name="app_name">ZPLAY Ads</string>
-    <string name="app_id">Your App ID here</string>
-    <string name="ad_unit_id">Your Ad Unit ID here</string>
-    <string name="scan">Scan</string>
-    <string name="request">Request</string>
-    <string name="present">Present</string>
-    <string name="payload_loaded">payload loaded</string>
-    <string name="play_page_loaded">play page loaded</string>
-    <string name="landing_page_loaded">landing page loaded</string>
-    <string name="ads_incentive">click landing page close button</string>
-    <string name="ads_error">error message: %1$d -> %2$s</string>
     <string name="open_camera_permission">open camera permission please.</string>
     <string name="code_request_error">parse QR code error</string>
     <string name="open_write_permission">open WRITE_EXTERNAL_STORAGE permission, it can speed up the ad view showing.</string>
     <string name="open_phone_permission">Please open the READ_PHONE_STATE permissions, or can not normally get imei information, may lead to no advertising revenue</string>
-    <string name="load_failed">errorCode: %1$d message: %2$s</string>
-    <string name="start_request">Start request ad</string>
-    <string name="pre_cache_finished">ad load is complete</string>
-    <string name="loading_ad">ad is loading…</string>
     <string name="back">Back</string>
     <string name="gallery">Gallery</string>
     <string name="zplay_ads">Zplay Ads</string>
     <string name="scan_msg">Please focus on QR code</string>
     <string name="_2010_2017_power_by_zplay_ads">© 2010 ～ 2017 Power By Zplay Ads</string>
-    <string name="present_ad">present ad</string>
-    <string name="storage_permission_msg">please check the storage permission</string>
     <string name="image_load_failed">image load failed</string>
     <string name="loading">loading…</string>
     <string name="open_gallery"><![CDATA[getting QR code from Zplay Ads<br />or<br /><font color=\'#7FE961\'>choose QR code</font>]]></string>
-    <string name="dividing_line">--------dividing line--------</string>
     <string name="parse_success">QR code is OK</string>
 </resources>

@@ -251,7 +251,7 @@ public class MainActivity extends FragmentActivity {
             if (TextUtils.equals(permissions[i], Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     && grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                 isOk = false;
-                setInfo(getString(R.string.storage_permission_msg));
+                setInfo(getString(R.string.open_write_permission));
             }
         }
 

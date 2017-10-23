@@ -128,7 +128,7 @@ public class GalleryActivity extends Activity {
         for (int i = 0; i < permissions.length; i++) {
             if (TextUtils.equals(permissions[i], Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, R.string.storage_permission_msg, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.open_write_permission, Toast.LENGTH_LONG).show();
                 } else {
                     loadImages();
                 }
