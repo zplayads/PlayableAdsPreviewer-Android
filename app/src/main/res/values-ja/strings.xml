@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ZPLAY Ads</string>
+    <string name="zplay_ads">ZPLAY Adsプレビューツール</string>
+    <string name="scan_msg">2次元コードをフレーム内に入れば自動走査する</string>
+    <string name="open_gallery"><![CDATA[ZPLAY Ads広告のプラットフォームで2次元コードを獲得することができます<br />あるいは<br /><font color=\'#7FE961\'>2次元コードを選択する</font>]]></string>
+
+    <string name="parse_success">二次元コード解析成功</string>
+    <string name="code_request_error">二次元コード解析失敗</string>
+
+    <string name="open_camera_permission">カメラの権限がありません</string>
+    <string name="open_write_permission">メモリーカードの読み取りおよび書き込みの権限がない</string>
+    <string name="open_phone_permission">電話の権限ががない </string>
+    <string name="back">戻る</string>
+    <string name="gallery">ギャラリー</string>
+    <string name="loading">ロード中</string>
+    <string name="image_load_failed">画像負荷失敗</string>
+
+    <string name="_2010_2017_power_by_zplay_ads">© 2010 ～ 2017 Power By ZPLAY Ads</string>
+</resources>

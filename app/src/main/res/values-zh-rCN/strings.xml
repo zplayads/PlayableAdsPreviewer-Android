@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ZPLAY Ads</string>
+    <string name="zplay_ads">ZPLAY Ads预览工具</string>
+    <string name="scan_msg">将二维码放入框内，即可自动扫描</string>
+    <string name="open_gallery"><![CDATA[您可在ZPLAY Ads广告平台获得二维码<br />或者<br /><font color=\'#7FE961\'>选择二维码</font>]]></string>
+
+    <string name="parse_success">二维码解析成功</string>
+    <string name="code_request_error">二维码解析失败</string>
+
     <string name="open_camera_permission">缺少相机权限</string>
-    <string name="code_request_error">解析二维码失败</string>
     <string name="open_write_permission">缺少存储卡读写权限</string>
     <string name="open_phone_permission">缺少电话权限</string>
     <string name="back">返回</string>
     <string name="gallery">图库</string>
-    <string name="zplay_ads">ZPLAY Ads预览工具</string>
-    <string name="scan_msg">将二维码/条形码放入框内，即可自动扫描</string>
-    <string name="_2010_2017_power_by_zplay_ads">© 2010 ～ 2017 Power By Zplay Ads</string>
-    <string name="image_load_failed">图片加载失败</string>
     <string name="loading">正在加载中。。。</string>
-    <string name="open_gallery"><![CDATA[您可在Zplay Ads广告平台获得二维码<br />或者<br /><font color=\'#7FE961\'>选择二维码</font>]]></string>
-    <string name="parse_success">二维码解析成功</string>
+    <string name="image_load_failed">图片加载失败</string>
+
+    <string name="_2010_2017_power_by_zplay_ads">© 2010 ～ 2017 Power By ZPLAY Ads</string>
 </resources>

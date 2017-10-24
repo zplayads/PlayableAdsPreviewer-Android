@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ZPLAY Ads</string>
+    <string name="zplay_ads">ZPLAY Ads預覽工具</string>
+    <string name="scan_msg">將二維碼放入框內，即可自動掃描</string>
+    <string name="open_gallery"><![CDATA[你可以在ZPLAY Ads廣告平臺獲得二維碼<br />或者<br /><font color=\'#7FE961\'>選擇二維碼</font>]]></string>
+
+    <string name="parse_success">二維碼解析成功</string>
+    <string name="code_request_error">二維碼解析失敗</string>
+
+    <string name="open_camera_permission">缺少相機許可權</string>
+    <string name="open_write_permission">缺少存儲卡讀寫許可權</string>
+    <string name="open_phone_permission">缺少電話許可權</string>
+    <string name="back">返回</string>
+    <string name="gallery">圖庫</string>
+    <string name="loading">正在載入中。。。</string>
+    <string name="image_load_failed">圖片載入失敗</string>
+
+    <string name="_2010_2017_power_by_zplay_ads">© 2010 ～ 2017 Power By ZPLAY Ads</string>
+</resources>
