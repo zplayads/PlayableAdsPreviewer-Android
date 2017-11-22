@@ -12,7 +12,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -31,6 +30,8 @@ import static com.zplay.zplayads.GalleryActivity.EXTRA_PATH;
 public class MainActivity extends FragmentActivity {
     private static final String TAG = "ccc";
     private static final int REQUEST_IMAGE = 1;
+    private static final String  APP_ID = "androidDemoApp";
+    private static final String AD_UNIT_ID = "androidDemoAdUnit";
 
     @BindView(R.id.text)
     TextView info;
@@ -59,7 +60,7 @@ public class MainActivity extends FragmentActivity {
         ButterKnife.bind(this);
         textView.setText(Html.fromHtml(getString(R.string.open_gallery)));
 
-        mAds = PlayableAds.init(this, "androidDemoApp", "androidDemoAdUnit");
+        mAds = PlayableAds.init(this, APP_ID);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
@@ -146,7 +147,7 @@ public class MainActivity extends FragmentActivity {
     };
 
     private void requestAd(String result) {
-        mAds.requestPlayableAds(result, mPreloadingListener);
+        mAds.requestPlayableAds(mPreloadingListener, result);
     }
 
     private PlayPreloadingListener mPreloadingListener = new PlayPreloadingListener() {
@@ -156,7 +157,7 @@ public class MainActivity extends FragmentActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mAds.presentPlayableAD(MainActivity.this, new SimplePlayLoadingListener() {
+                    mAds.presentPlayableAd(new SimplePlayLoadingListener() {
 
                         @Override
                         public void playableAdsIncentive() {
