@@ -62,6 +62,7 @@ public class MainActivity extends FragmentActivity {
         textView.setText(Html.fromHtml(getString(R.string.open_gallery)));
 
         mAds = PlayableAds.init(this, APP_ID);
+        mAds.setAutoLoadAd(false);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
@@ -148,7 +149,7 @@ public class MainActivity extends FragmentActivity {
     };
 
     private void requestAd(String result) {
-        Log.d("ccc", "requestAd: " + result);
+        Log.d(TAG, "requestAd: " + result);
         mAds.requestPlayableAds(mPreloadingListener, result);
     }
 
@@ -156,7 +157,7 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         public void onLoadFinished() {
-            Log.d("ccc", "onLoadFinished: ");
+            Log.d(TAG, "onLoadFinished: ");
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -179,6 +180,7 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         public void onLoadFailed(int errorCode, String msg) {
+            Log.d(TAG, "onLoadFailed: " + errorCode);
             mLoadingContainer.post(new Runnable() {
                 @Override
                 public void run() {
