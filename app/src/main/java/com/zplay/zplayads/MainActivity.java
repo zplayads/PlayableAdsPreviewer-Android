@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -30,7 +31,7 @@ import static com.zplay.zplayads.GalleryActivity.EXTRA_PATH;
 public class MainActivity extends FragmentActivity {
     private static final String TAG = "ccc";
     private static final int REQUEST_IMAGE = 1;
-    private static final String  APP_ID = "androidDemoApp";
+    private static final String APP_ID = "androidDemoApp";
     private static final String AD_UNIT_ID = "androidDemoAdUnit";
 
     @BindView(R.id.text)
@@ -147,6 +148,7 @@ public class MainActivity extends FragmentActivity {
     };
 
     private void requestAd(String result) {
+        Log.d("ccc", "requestAd: " + result);
         mAds.requestPlayableAds(mPreloadingListener, result);
     }
 
@@ -154,6 +156,7 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         public void onLoadFinished() {
+            Log.d("ccc", "onLoadFinished: ");
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -176,15 +179,13 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         public void onLoadFailed(int errorCode, String msg) {
-            if (errorCode == -1) {
-                mLoadingContainer.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mLoadingContainer.setVisibility(View.GONE);
-                    }
-                });
-                ErrorActivity.launch(MainActivity.this, getString(R.string.code_request_error));
-            }
+            mLoadingContainer.post(new Runnable() {
+                @Override
+                public void run() {
+                    mLoadingContainer.setVisibility(View.GONE);
+                }
+            });
+            ErrorActivity.launch(MainActivity.this, getString(R.string.code_request_error));
         }
     };
 
@@ -206,17 +207,20 @@ public class MainActivity extends FragmentActivity {
                     CodeUtils.analyzeBitmap(path, new CodeUtils.AnalyzeCallback() {
                         @Override
                         public void onAnalyzeSuccess(Bitmap mBitmap, String result) {
+                            Log.d(TAG, "onAnalyzeSuccess: " + result);
                             showLoadingInfo(getString(R.string.parse_success), false);
                             requestAd(result);
                         }
 
                         @Override
                         public void onAnalyzeFailed() {
+                            Log.d(TAG, "onAnalyzeFailed: ");
                             mLoadingContainer.setVisibility(View.GONE);
                             ErrorActivity.launch(MainActivity.this, getString(R.string.code_request_error));
                         }
                     });
                 } catch (Exception e) {
+                    Log.e(TAG, "onActivityResult: ", e);
                     e.printStackTrace();
                 }
             }
