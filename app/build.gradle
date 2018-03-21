@@ -30,5 +30,8 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.google.android.gms:play-services-ads:11.0.4'
-    compile project(':playableads-release')
+    compile 'com.playableads:playableads:2.0.2'
+
+    compile 'com.umeng.sdk:common:1.4.4'
+    compile 'com.umeng.sdk:analytics:7.4.4'
 }

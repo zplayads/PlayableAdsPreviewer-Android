@@ -1,1 +1,1 @@
-include ':app', ':playableads-release'
+include ':app'
