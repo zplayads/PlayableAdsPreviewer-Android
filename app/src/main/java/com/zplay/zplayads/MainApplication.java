@@ -2,7 +2,7 @@ package com.zplay.zplayads;
 
 import android.app.Application;
 
-import com.umeng.commonsdk.UMConfigure;
+import com.tencent.bugly.crashreport.CrashReport;
 
 /**
  * Description:
@@ -15,7 +15,7 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "5ab0e6ed8f4a9d59e100038b");
+        CrashReport.initCrashReport(getApplicationContext(), "be7ee661c6", false);
     }
 
 }
