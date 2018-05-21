@@ -3,7 +3,10 @@
     <string name="app_name">ZPLAY Ads</string>
     <string name="zplay_ads">ZPLAY Ads미리보기</string>
     <string name="scan_msg">스캔 코드를 넣어 주시면 바로 스캔 하여 드리겠습니다</string>
-    <string name="open_gallery"><![CDATA[ZPLAY Ads에서 스캔 코드 바로 받아 올 수 있습니다<br />혹은<br /><font color=\'#7FE961\'>스캔 코드 선택 하기</font>]]></string>
+
+    <string name="open_office"><![CDATA[<font color=\'#7FE961\'>ZPLAY Ads</font> 에서 스캔 코드 바로 받아 올 수 있습니다]]></string>
+    <string name="or">혹은</string>
+    <string name="open_gallery">스캔 코드 선택 하기</string>
 
     <string name="parse_success">코드 스캔 성공</string>
     <string name="code_request_error">코드 스캔 실패</string>

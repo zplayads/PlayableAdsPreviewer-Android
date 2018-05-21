@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,6 +37,8 @@ public class MainActivity extends FragmentActivity {
 
     @BindView(R.id.text)
     TextView info;
+    @BindView(R.id.text_container)
+    View textContainer;
     @BindView(R.id.am_textView)
     TextView textView;
     @BindView(R.id.am_loadingContainer)
@@ -59,7 +62,7 @@ public class MainActivity extends FragmentActivity {
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        textView.setText(Html.fromHtml(getString(R.string.open_gallery)));
+        textView.setText(Html.fromHtml(getString(R.string.open_office)));
 
         mAds = PlayableAds.init(this, APP_ID);
         mAds.setAutoLoadAd(false);
@@ -119,7 +122,7 @@ public class MainActivity extends FragmentActivity {
     private void showTextInfo() {
         mFragmentContainer.setVisibility(View.VISIBLE);
         mTopTextView.setVisibility(View.VISIBLE);
-        textView.setVisibility(View.VISIBLE);
+        textContainer.setVisibility(View.VISIBLE);
     }
 
     private void setInfo(final String msg) {
@@ -271,5 +274,13 @@ public class MainActivity extends FragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
         PlayableAds.getInstance().onDestroy();
+    }
+
+    public void openOfficeWebsite(View view) {
+        try {
+            Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.zplayads.com"));
+            startActivity(myIntent);
+        } catch (Exception ignore) {
+        }
     }
 }

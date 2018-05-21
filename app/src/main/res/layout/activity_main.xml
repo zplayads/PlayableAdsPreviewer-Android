@@ -41,17 +41,42 @@
         android:textColor="#fff"
         android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/am_textView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/text_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_marginTop="360dp"
-        android:clickable="true"
-        android:gravity="center"
-        android:onClick="openGallery"
-        android:textColor="#fff"
-        android:visibility="gone" />
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/am_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:onClick="openOfficeWebsite"
+            android:focusable="true"
+            android:gravity="center_horizontal"
+            android:textColor="#fff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/or"
+            android:textColor="#fff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:onClick="openGallery"
+            android:text="@string/open_gallery"
+            android:textColor="@color/bling_color" />
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="match_parent"
