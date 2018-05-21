@@ -3,7 +3,9 @@
     <string name="app_name">ZPLAY Ads</string>
     <string name="zplay_ads">ZPLAY Ads Preview tool</string>
     <string name="scan_msg">Scan the QR code here</string>
-    <string name="open_gallery"><![CDATA[Codes are available on the ZPLAY Ads platform or may have been save to your photo storage<br />Or<br /><font color=\'#7FE961\'>Access photo storage</font>]]></string>
+    <string name="open_office"><![CDATA[Codes are available on the <font color=\'#7FE961\'>ZPLAY Ads</font> platform or may have been save to your photo storage]]></string>
+    <string name="or">Or</string>
+    <string name="open_gallery">Access photo storage</string>
 
     <string name="parse_success">Read successful</string>
     <string name="code_request_error">Failed to read</string>

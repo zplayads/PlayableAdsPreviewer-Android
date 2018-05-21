@@ -3,7 +3,9 @@
     <string name="app_name">ZPLAY Ads</string>
     <string name="zplay_ads">ZPLAY Ads预览工具</string>
     <string name="scan_msg">将二维码放入框内，即可自动扫描</string>
-    <string name="open_gallery"><![CDATA[您可在ZPLAY Ads广告平台获得二维码<br />或者<br /><font color=\'#7FE961\'>选择二维码</font>]]></string>
+    <string name="open_office"><![CDATA[您可在<font color=\'#7FE961\'>ZPLAY Ads</font>广告平台获得二维码]]></string>
+    <string name="or">或者</string>
+    <string name="open_gallery">选择二维码</string>
 
     <string name="parse_success">二维码解析成功</string>
     <string name="code_request_error">二维码解析失败</string>

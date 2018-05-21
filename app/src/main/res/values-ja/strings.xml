@@ -3,7 +3,9 @@
     <string name="app_name">ZPLAY Ads</string>
     <string name="zplay_ads">ZPLAY Adsプレビューツール</string>
     <string name="scan_msg">2次元コードをフレーム内に入れば自動走査する</string>
-    <string name="open_gallery"><![CDATA[ZPLAY Ads広告のプラットフォームで2次元コードを獲得することができます<br />あるいは<br /><font color=\'#7FE961\'>2次元コードを選択する</font>]]></string>
+    <string name="open_office"><![CDATA[<font color=\'#7FE961\'>ZPLAY Ads</font>広告のプラットフォームで2次元コードを獲得することができます]]></string>
+    <string name="or">あるいは</string>
+    <string name="open_gallery">2次元コードを選択する</string>
 
     <string name="parse_success">二次元コード解析成功</string>
     <string name="code_request_error">二次元コード解析失敗</string>
