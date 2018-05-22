@@ -70,13 +70,11 @@ public class MainActivity extends FragmentActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
             if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED
-                    && checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_DENIED
                     && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                 setInfo(getString(R.string.open_camera_permission));
                 requestPermissions(new String[]{
                         Manifest.permission.CAMERA,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_PHONE_STATE}, 0);
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
                 return;
             }
 
@@ -97,11 +95,6 @@ public class MainActivity extends FragmentActivity {
                 setInfo(getString(R.string.open_write_permission));
                 requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
                 return;
-            }
-
-            if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_DENIED) {
-                setInfo(getString(R.string.open_phone_permission));
-                requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, 0);
             }
         }
 
