@@ -3,7 +3,6 @@ package com.zplay.zplayads;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -99,7 +98,7 @@ public class GalleryActivity extends Activity {
 
                     File f = new File(path);
 
-                    if (f.length() > 4096 && !path.contains(cacheDir)) {
+                    if (f.length() > 1024 && !path.contains(cacheDir)) {
                         mFilePathArray.add(path);
                     }
 
