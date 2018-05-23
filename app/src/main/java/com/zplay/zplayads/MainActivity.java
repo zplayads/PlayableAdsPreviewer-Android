@@ -66,6 +66,7 @@ public class MainActivity extends FragmentActivity {
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        setCopyright();
         textView.setText(Html.fromHtml(getString(R.string.open_office)));
 
         mAds = PlayableAds.init(this, APP_ID);
@@ -103,8 +104,6 @@ public class MainActivity extends FragmentActivity {
         }
 
         initCaptureFragment();
-
-        setCopyright();
     }
 
     private void setCopyright() {
