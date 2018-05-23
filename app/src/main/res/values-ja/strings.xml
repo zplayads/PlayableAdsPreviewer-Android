@@ -18,5 +18,5 @@
     <string name="loading">ロード中</string>
     <string name="image_load_failed">画像負荷失敗</string>
 
-    <string name="_2010_2017_power_by_zplay_ads">© 2010 ～ 2017 Power By ZPLAY Ads</string>
+    <string name="copyright">© 2010 ～ %1$d Power By ZPLAY Ads</string>
 </resources>

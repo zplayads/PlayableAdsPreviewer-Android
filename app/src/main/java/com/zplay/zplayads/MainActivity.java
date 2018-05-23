@@ -24,6 +24,8 @@ import com.uuzuche.lib_zxing.activity.CaptureFragment;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
+import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -49,6 +51,8 @@ public class MainActivity extends FragmentActivity {
     View mFragmentContainer;
     @BindView(R.id.am_topTextView)
     View mTopTextView;
+    @BindView(R.id.copyright)
+    TextView mCopyrightText;
 
     CaptureFragment captureFragment;
 
@@ -99,6 +103,14 @@ public class MainActivity extends FragmentActivity {
         }
 
         initCaptureFragment();
+
+        setCopyright();
+    }
+
+    private void setCopyright() {
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        mCopyrightText.setText(getString(R.string.copyright, year));
     }
 
     private void initCaptureFragment() {

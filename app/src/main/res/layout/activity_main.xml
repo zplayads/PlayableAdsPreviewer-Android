@@ -79,12 +79,13 @@
 
 
     <TextView
+        android:id="@+id/copyright"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_gravity="bottom"
         android:background="#ea100f0f"
         android:gravity="center"
-        android:text="@string/_2010_2017_power_by_zplay_ads"
+        android:text="@string/copyright"
         android:textColor="#fff"
         android:textSize="12sp" />
 
