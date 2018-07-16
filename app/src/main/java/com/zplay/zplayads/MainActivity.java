@@ -156,7 +156,7 @@ public class MainActivity extends FragmentActivity {
     };
 
     private void requestAd(String result) {
-        Log.d(TAG, "requestAd: " + result);
+        showLoadingInfo(getString(R.string.loading), false);
         mAds.requestPlayableAds(mPreloadingListener, result);
     }
 
@@ -194,7 +194,7 @@ public class MainActivity extends FragmentActivity {
                     mLoadingContainer.setVisibility(View.GONE);
                 }
             });
-            ErrorActivity.launch(MainActivity.this, getString(R.string.code_request_error));
+            ErrorActivity.launch(MainActivity.this, getString(R.string.image_load_failed));
         }
     };
 
