@@ -7,8 +7,8 @@ android {
         applicationId "com.zplay.zplayads"
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 204
-        versionName "2.0.4"
+        versionCode 207
+        versionName "2.0.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -29,7 +29,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile 'com.playableads:playableads:2.0.4'
+    compile 'com.playableads:playableads:2.0.7'
 
     compile 'com.tencent.bugly:crashreport:2.6.6.1'
 }
