@@ -17,6 +17,7 @@
     <string name="gallery">ギャラリー</string>
     <string name="loading">ロード中</string>
     <string name="image_load_failed">画像負荷失敗</string>
+    <string name="ad_load_failed">広告が失敗する</string>
 
     <string name="copyright">© 2010 ～ %1$d Power By ZPLAY Ads</string>
 </resources>

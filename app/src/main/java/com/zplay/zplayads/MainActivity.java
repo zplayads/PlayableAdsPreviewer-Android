@@ -194,7 +194,7 @@ public class MainActivity extends FragmentActivity {
                     mLoadingContainer.setVisibility(View.GONE);
                 }
             });
-            ErrorActivity.launch(MainActivity.this, getString(R.string.image_load_failed));
+            ErrorActivity.launch(MainActivity.this, getString(R.string.ad_load_failed));
         }
     };
 
