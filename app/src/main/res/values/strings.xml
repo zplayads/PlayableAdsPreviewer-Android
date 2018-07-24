@@ -17,6 +17,7 @@
     <string name="gallery">Photo storage</string>
     <string name="loading">Loading</string>
     <string name="image_load_failed">Loading failed </string>
+    <string name="ad_load_failed">Ad loading failed</string>
 
     <string name="copyright">© 2010 ～ %1$d Power By ZPLAY Ads</string>
 </resources>

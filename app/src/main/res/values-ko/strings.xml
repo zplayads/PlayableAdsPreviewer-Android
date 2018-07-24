@@ -18,6 +18,7 @@
     <string name="gallery">이미지 갤러리</string>
     <string name="loading">로딩 중</string>
     <string name="image_load_failed">이미지 로딩 중</string>
+    <string name="ad_load_failed">광고 다운로드에 실패 하였습니다</string>
 
     <string name="copyright">© 2010 ～ %1$d Power By ZPLAY Ads</string>
 </resources>
