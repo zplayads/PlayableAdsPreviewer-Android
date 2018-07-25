@@ -17,7 +17,7 @@
     <string name="open_phone_permission">缺少電話許可權</string>
     <string name="back">返回</string>
     <string name="gallery">圖庫</string>
-    <string name="loading">正在載入中。。。</string>
+    <string name="loading">正在載入中...</string>
     <string name="image_load_failed">圖片載入失敗</string>
     <string name="ad_load_failed">廣告加載失敗</string>
 
