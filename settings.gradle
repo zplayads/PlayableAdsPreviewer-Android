@@ -1,1 +1,1 @@
-include ':app', ':zplayads-previewer-2.0.7'
+include ':app', ':zplayads-previewer'

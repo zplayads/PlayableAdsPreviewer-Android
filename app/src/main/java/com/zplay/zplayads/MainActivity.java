@@ -134,9 +134,7 @@ public class MainActivity extends FragmentActivity {
 
             @Override
             public void run() {
-                if (info != null) {
-                    info.append(msg + "\n\n");
-                }
+                info.append(msg + "\n\n");
             }
         });
     }
