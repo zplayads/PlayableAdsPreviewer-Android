@@ -10,7 +10,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
@@ -24,14 +26,25 @@ import com.uuzuche.lib_zxing.activity.CaptureFragment;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static com.zplay.zplayads.GalleryActivity.EXTRA_PATH;
 
 public class MainActivity extends FragmentActivity {
+    private static final List<String> REQUIRED_DANGEROUS_PERMISSIONS = new ArrayList<>();
+
+    static {
+        REQUIRED_DANGEROUS_PERMISSIONS.add(CAMERA);
+        REQUIRED_DANGEROUS_PERMISSIONS.add(WRITE_EXTERNAL_STORAGE);
+    }
+
     private static final String TAG = "ccc";
     private static final int REQUEST_IMAGE = 1;
     private static final String APP_ID = "androidDemoApp";
@@ -73,32 +86,15 @@ public class MainActivity extends FragmentActivity {
         mAds.setAutoLoadAd(false);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-            if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED
-                    && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-                setInfo(getString(R.string.open_camera_permission));
-                requestPermissions(new String[]{
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-                return;
+            ArrayList<String> permissions = new ArrayList<>();
+            for (String p : REQUIRED_DANGEROUS_PERMISSIONS) {
+                if (ContextCompat.checkSelfPermission(this, p) != PackageManager.PERMISSION_GRANTED) {
+                    permissions.add(p);
+                }
             }
-
-            if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED
-                    && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-                setInfo(getString(R.string.open_camera_permission));
-                requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-                return;
-            }
-
-            if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
-                setInfo(getString(R.string.open_camera_permission));
-                requestPermissions(new String[]{Manifest.permission.CAMERA}, 0);
-                return;
-            }
-
-            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-                setInfo(getString(R.string.open_write_permission));
-                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+            if (!permissions.isEmpty()) {
+                ActivityCompat.requestPermissions(this, permissions.toArray(
+                        new String[permissions.size()]), 0);
                 return;
             }
         }
@@ -134,9 +130,7 @@ public class MainActivity extends FragmentActivity {
 
             @Override
             public void run() {
-                if (info != null) {
-                    info.append(msg + "\n\n");
-                }
+                info.append(msg + "\n\n");
             }
         });
     }
@@ -256,7 +250,7 @@ public class MainActivity extends FragmentActivity {
         info.setText("");
         boolean isOk = true;
         for (int i = 0; i < permissions.length; i++) {
-            if (TextUtils.equals(permissions[i], Manifest.permission.CAMERA)
+            if (TextUtils.equals(permissions[i], CAMERA)
                     && grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                 isOk = false;
                 setInfo(getString(R.string.open_camera_permission));
