@@ -86,6 +86,7 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        FileStore.getInstance(getFilesDir().getPath()).clearCacheDir();
         ZXingLibrary.initDisplayOpinion(this);
 
         mRequestQueue = Volley.newRequestQueue(this);
@@ -177,7 +178,7 @@ public class MainActivity extends FragmentActivity {
                                 mAds.presentPlayableAD(tag, new SimplePlayLoadingListener() {
 
                                     @Override
-                                    public void playableAdsIncentive() {
+                                    public void onAdClosed() {
                                         mLoadingContainer.setVisibility(View.GONE);
                                     }
 
