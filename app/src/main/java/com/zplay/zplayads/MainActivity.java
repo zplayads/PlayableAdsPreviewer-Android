@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -17,14 +18,24 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.webkit.ValueCallback;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.playableads.PlayPreloadingListener;
 import com.playableads.PlayableAds;
 import com.playableads.SimplePlayLoadingListener;
+import com.playableads.constants.BusinessConstants;
 import com.uuzuche.lib_zxing.activity.CaptureFragment;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,7 +59,6 @@ public class MainActivity extends FragmentActivity {
     private static final String TAG = "ccc";
     private static final int REQUEST_IMAGE = 1;
     private static final String APP_ID = "androidDemoApp";
-    private static final String AD_UNIT_ID = "androidDemoAdUnit";
 
     @BindView(R.id.text)
     TextView info;
@@ -70,12 +80,15 @@ public class MainActivity extends FragmentActivity {
     CaptureFragment captureFragment;
 
     PlayableAds mAds;
+    RequestQueue mRequestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         ZXingLibrary.initDisplayOpinion(this);
+
+        mRequestQueue = Volley.newRequestQueue(this);
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -149,48 +162,84 @@ public class MainActivity extends FragmentActivity {
         }
     };
 
-    private void requestAd(String result) {
+    private void requestAd(String srcId) {
         showLoadingInfo(getString(R.string.loading), false);
-        mAds.requestPlayableAds(mPreloadingListener, result);
-    }
+        final ValueCallback<JSONObject> callback = new ValueCallback<JSONObject>() {
+            @Override
+            public void onReceiveValue(JSONObject value) {
+                mAds.requestPlayableAds(value, new PlayPreloadingListener() {
+                    @Override
+                    public void onLoadFinished() {
+                        final String tag = Encrypter.doMD5Encode16(String.valueOf(this.hashCode()));
+                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mAds.presentPlayableAD(tag, new SimplePlayLoadingListener() {
 
-    private PlayPreloadingListener mPreloadingListener = new PlayPreloadingListener() {
+                                    @Override
+                                    public void playableAdsIncentive() {
+                                        mLoadingContainer.setVisibility(View.GONE);
+                                    }
 
-        @Override
-        public void onLoadFinished() {
-            Log.d(TAG, "onLoadFinished: ");
-            new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void onAdsError(int code, String msg) {
+                                        setInfo(msg);
+                                    }
+                                });
+                            }
+                        }, 500);
+                    }
+
+                    @Override
+                    public void onLoadFailed(int errorCode, String msg) {
+                        Log.d(TAG, "onLoadFailed: " + errorCode);
+                        mLoadingContainer.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mLoadingContainer.setVisibility(View.GONE);
+                            }
+                        });
+                        ErrorActivity.launch(MainActivity.this, getString(R.string.ad_load_failed));
+                    }
+                });
+            }
+        };
+
+        if (srcId.startsWith("https://") || srcId.startsWith("http://")) {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.putOpt("response_target", "preview");
+                jsonObject.putOpt("video_page_url", srcId);
+            } catch (JSONException ignore) {
+            }
+            callback.onReceiveValue(jsonObject);
+        } else {
+            String url = BusinessConstants.HOST_SRC_ID() + "/" + srcId;
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
                 @Override
-                public void run() {
-                    mAds.presentPlayableAd(new SimplePlayLoadingListener() {
-
+                public void onResponse(JSONObject jo) {
+                    try {
+                        jo.putOpt("response_target", "preview");
+                    } catch (JSONException ignore) {
+                    }
+                    callback.onReceiveValue(jo);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d(TAG, "onLoadFailed: " + error);
+                    mLoadingContainer.post(new Runnable() {
                         @Override
-                        public void playableAdsIncentive() {
+                        public void run() {
                             mLoadingContainer.setVisibility(View.GONE);
                         }
-
-                        @Override
-                        public void onAdsError(int code, String msg) {
-                            setInfo(msg);
-                        }
                     });
-                }
-            }, 1000);
-
-        }
-
-        @Override
-        public void onLoadFailed(int errorCode, String msg) {
-            Log.d(TAG, "onLoadFailed: " + errorCode);
-            mLoadingContainer.post(new Runnable() {
-                @Override
-                public void run() {
-                    mLoadingContainer.setVisibility(View.GONE);
+                    ErrorActivity.launch(MainActivity.this, getString(R.string.ad_load_failed));
                 }
             });
-            ErrorActivity.launch(MainActivity.this, getString(R.string.ad_load_failed));
+            mRequestQueue.add(jsonObjectRequest);
         }
-    };
+    }
 
     public void openGallery(View view) {
         GalleryActivity.launch(this, REQUEST_IMAGE);

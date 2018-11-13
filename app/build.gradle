@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    buildToolsVersion "26.0.3"
     defaultConfig {
         applicationId "com.zplay.zplayads"
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 211
-        versionName "2.1.1"
+        versionCode 230
+        versionName "2.3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -20,15 +20,17 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:26.+'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
     testCompile 'junit:junit:4.12'
-    compile 'cn.yipianfengye.android:zxing-library:2.2'
-    compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
-    compile 'com.github.bumptech.glide:glide:4.2.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
-    compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile 'com.tencent.bugly:crashreport:2.6.6.1'
-    compile project(':zplayads-previewer')
+
+    implementation 'cn.yipianfengye.android:zxing-library:2.2'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.github.bumptech.glide:glide:4.2.0'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.tencent.bugly:crashreport:2.6.6.1'
+    implementation 'com.playableads:playableads:2.3.0'
+    implementation 'com.android.volley:volley:1.1.1'
 }
