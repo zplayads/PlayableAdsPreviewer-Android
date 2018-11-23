@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.3"
     defaultConfig {
         applicationId "com.zplay.zplayads"
         minSdkVersion 14
@@ -11,9 +10,21 @@ android {
         versionName "2.3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release {
+            storeFile project.rootProject.file("playable_dept.jks")
+            storePassword System.getenv("STORE_PASSWORD")
+            keyAlias "pa_android"  
+            keyPassword System.getenv("KEY_PASSWORD")
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -33,4 +44,21 @@ dependencies {
     implementation 'com.tencent.bugly:crashreport:2.6.6.1'
     implementation 'com.playableads:playableads:2.3.0'
     implementation 'com.android.volley:volley:1.1.1'
+}
+
+
+
+apply plugin: 'de.felixschulze.gradle.hockeyapp'
+
+hockeyapp {
+    apiToken = System.getenv('HOCKEYAPP_API_TOKEN') ?: properties['hockeyapp.api.token']
+    releaseType = 0
+    notify = 1
+    status = 2
+    notesType = 1
+    def releaseFile = project.rootProject.file('RELEASE.md')
+    notes = releaseFile.exists() ? releaseFile.getText('UTF-8') : System.getenv('TRAVIS_COMMIT_MESSAGE')
+    variantToApplicationId = [
+            release: System.getenv('HOCKEYAPP_ID')
+    ]
 }
